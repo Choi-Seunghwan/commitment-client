@@ -1,4 +1,4 @@
-import 'package:commitment_client/screens/home_page.dart';
+import 'package:commitment_client/screens/main_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,6 +17,6 @@ class CommitmentApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: HomePage());
+        home: MainPage());
   }
 }
