@@ -1,10 +1,28 @@
+import 'package:commitment_client/service/api_client.dart';
+import 'package:commitment_client/service/commitment_service.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:commitment_client/provider/commitment_provider.dart';
 import 'package:commitment_client/screens/main_page.dart';
 
-void main() {
-  runApp(const CommitmentApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterConfig.loadEnvVariables();
+
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<ApiClient>(
+          create: (_) => ApiClient(),
+        ),
+        ProxyProvider<ApiClient, CommitmentService>(
+          update: (_, apiClient, __) => CommitmentService(apiClient),
+        ),
+      ],
+      child: const CommitmentApp(),
+    ),
+  );
 }
 
 class CommitmentApp extends StatelessWidget {

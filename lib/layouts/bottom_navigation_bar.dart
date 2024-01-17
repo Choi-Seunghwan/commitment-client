@@ -1,3 +1,4 @@
+import 'package:commitment_client/strings/strings.dart';
 import 'package:flutter/material.dart';
 
 class MyBottomNavigationBar extends StatelessWidget {
@@ -11,8 +12,9 @@ class MyBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'My Page'),
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: "home")
+        BottomNavigationBarItem(
+            icon: Icon(Icons.person), label: Strings.NAV_MY_COMMITMENTS),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: Strings.NAV_HOME)
       ],
       currentIndex: selectedIndex,
       onTap: onItemTapped,

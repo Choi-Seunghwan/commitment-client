@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CommitmentsList extends StatelessWidget {
   final List<CommitmentInfo> commitments;
 
-  CommitmentsList({required this.commitments});
+  const CommitmentsList({super.key, required this.commitments});
 
   @override
   Widget build(BuildContext context) {
