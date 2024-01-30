@@ -1,10 +1,10 @@
+import 'package:commitment_client/screens/splash_screen.dart';
 import 'package:commitment_client/service/api_client.dart';
 import 'package:commitment_client/service/commitment_service.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:commitment_client/provider/commitment_provider.dart';
-import 'package:commitment_client/screens/main_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +39,6 @@ class CommitmentApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home: MainPage()));
+            home: SplashScreen()));
   }
 }

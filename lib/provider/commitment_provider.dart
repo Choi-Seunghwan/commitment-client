@@ -10,7 +10,7 @@ class CommitmentProvider with ChangeNotifier {
   List<CommitmentInfo> get commitments => _commitments;
 
   Future<void> fetchCommitments() async {
-    // final url = 'https://your-api-url.com/commitments'; // API URL을 적절히 대체하세요
+    // final url = 'https://your-api-url.com/commitments';
     try {
       // final response = await http.get(Uri.parse(url));
       // final extractedData = json.decode(response.body) as List<dynamic>;

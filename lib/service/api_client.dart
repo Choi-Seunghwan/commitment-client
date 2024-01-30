@@ -16,16 +16,27 @@ class ApiClient {
     return json.decode(response.body);
   }
 
-  Future<Map<String, dynamic>> post(
-      String path, Map<String, dynamic> data) async {
+  Future<Map<String, dynamic>> post(String path,
+      [Map<String, dynamic>? data]) async {
     final response = await httpClient.post(
       Uri.parse('$baseUrl$path'),
       headers: {'Content-Type': 'application/json'},
-      body: json.encode(data),
+      body: data != null ? json.encode(data) : null,
     );
     // 여기에 응답 처리 로직을 추가
     return json.decode(response.body);
   }
 
   // 필요한 경우 put, delete 등의 메서드를 추가할 수 있습니다.
+
+  Future<Map<String, dynamic>> put(String path,
+      [Map<String, dynamic>? data]) async {
+    final response = await httpClient.post(
+      Uri.parse('$baseUrl$path'),
+      headers: {'Content-Type': 'application/json'},
+      body: data != null ? json.encode(data) : null,
+    );
+
+    return json.decode(response.body);
+  }
 }
