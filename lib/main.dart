@@ -1,14 +1,16 @@
+import 'package:commitment_client/provider/auth_provider.dart';
 import 'package:commitment_client/screens/splash_screen.dart';
 import 'package:commitment_client/service/api_client.dart';
 import 'package:commitment_client/service/auth_service.dart';
 import 'package:commitment_client/service/commitment_service.dart';
-import 'package:flutter_config/flutter_config.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterConfig.loadEnvVariables();
+
+  await dotenv.load(fileName: ".env.dev");
 
   runApp(
     MultiProvider(
@@ -20,8 +22,12 @@ void main() async {
           update: (_, apiClient, __) => CommitmentService(apiClient),
         ),
         ProxyProvider<ApiClient, AuthService>(update: (_, apiClient, __) => AuthService(apiClient)),
-        ProxyProvider<ApiClient, AuthService>(update: (_, apiClient, __) => AuthService(apiClient)),
-        ProxyProvider<ApiClient, AuthService>(update: (_, apiClient, __) => AuthService(apiClient)),
+        // ProxyProvider<AuthService, AuthProvider>(update: (_, authService, __) => AuthProvider(authService)),
+        ChangeNotifierProxyProvider<AuthService, AuthProvider>(
+          create: (context) => AuthProvider(Provider.of<AuthService>(context, listen: false)),
+          update: (context, authService, previous) => AuthProvider(authService),
+        ),
+        // ProxyProvider<ApiClient, AuthService>(update: (_, apiClient, __) => AuthService(apiClient)),
       ],
       child: const CommitmentApp(),
     ),

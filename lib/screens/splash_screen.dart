@@ -24,17 +24,15 @@ class SplashScreenState extends State<SplashScreen> {
     // token check
 
     if (isUserLoggedIn) {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
     } else {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => LoginPage()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const LoginPage()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Text('Loading...'),
       ),

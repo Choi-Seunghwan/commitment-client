@@ -1,13 +1,13 @@
 import 'dart:convert';
+import 'package:commitment_client/environment.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_config/flutter_config.dart';
 
 class ApiClient {
   final String baseUrl;
   final http.Client httpClient;
 
   ApiClient({http.Client? client})
-      : baseUrl = FlutterConfig.get('BASE_URL'),
+      : baseUrl = Environment.baseUrl,
         httpClient = client ?? http.Client();
 
   Future<Map<String, dynamic>> get(String path) async {
@@ -18,14 +18,20 @@ class ApiClient {
   }
 
   Future<Map<String, dynamic>> post(String path, [Map<String, dynamic>? data]) async {
-    final response = await httpClient.post(
-      Uri.parse('$baseUrl$path'),
-      headers: {'Content-Type': 'application/json'},
-      body: data != null ? json.encode(data) : null,
-    );
-    _handleResponse(response);
+    try {
+      print('here');
 
-    return json.decode(response.body);
+      final response = await httpClient.post(
+        Uri.parse('$baseUrl$path'),
+        headers: {'Content-Type': 'application/json'},
+        body: data != null ? json.encode(data) : null,
+      );
+      _handleResponse(response);
+      return json.decode(response.body);
+    } catch (e) {
+      print('eerr');
+      throw Exception('hlehl');
+    }
   }
 
   Future<Map<String, dynamic>> put(String path, [Map<String, dynamic>? data]) async {
@@ -49,6 +55,7 @@ class ApiClient {
   }
 
   void _handleResponse(http.Response response) {
+    String a;
     if (response.statusCode < 200 || response.statusCode >= 300) {
       throw Exception(response);
     }
