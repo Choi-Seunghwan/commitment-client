@@ -8,34 +8,27 @@ class CommitmentInfo {
   int? days;
   String? status;
 
-  CommitmentInfo(
-      {this.id,
-      this.title,
-      this.creator,
-      this.createDate,
-      this.days,
-      this.status});
+  CommitmentInfo({this.id, this.title, this.creator, this.createDate, this.days, this.status});
 
   CommitmentInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
-    creator =
-        json['creator'] != null ? new UserInfo.fromJson(json['creator']) : null;
+    creator = json['creator'] != null ? UserInfo.fromJson(json['creator']) : null;
     createDate = json['createDate'];
     days = json['days'];
     status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    if (this.creator != null) {
-      data['creator'] = this.creator!.toJson();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['title'] = title;
+    if (creator != null) {
+      data['creator'] = creator!.toJson();
     }
-    data['createDate'] = this.createDate;
-    data['days'] = this.days;
-    data['status'] = this.status;
+    data['createDate'] = createDate;
+    data['days'] = days;
+    data['status'] = status;
     return data;
   }
 }

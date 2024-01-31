@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:commitment_client/models/commitment_info.dart';
 
@@ -15,8 +14,7 @@ class CommitmentProvider with ChangeNotifier {
       // final response = await http.get(Uri.parse(url));
       // final extractedData = json.decode(response.body) as List<dynamic>;
 
-      final jsonString =
-          await rootBundle.loadString('lib/data/commitment-infos.json');
+      final jsonString = await rootBundle.loadString('lib/data/commitment-infos.json');
       final extractedData = json.decode(jsonString) as List;
 
       final List<CommitmentInfo> loadedCommitments = [];
