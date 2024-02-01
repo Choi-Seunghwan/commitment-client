@@ -1,34 +1,49 @@
+import 'package:commitment_client/models/commitment_activity_info.dart';
 import 'package:commitment_client/models/user_info.dart';
 
 class CommitmentInfo {
-  String? id;
+  String? commitmentId;
   String? title;
-  UserInfo? creator;
+  String? description;
   String? createDate;
-  int? days;
-  String? status;
+  int? renewalPeriodDays;
+  CommitmentActivityInfo? activity;
+  UserInfo? creator;
 
-  CommitmentInfo({this.id, this.title, this.creator, this.createDate, this.days, this.status});
+  CommitmentInfo(
+      {required this.commitmentId,
+      required this.title,
+      required this.description,
+      required this.createDate,
+      required this.renewalPeriodDays,
+      required this.activity,
+      required this.creator});
 
   CommitmentInfo.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    commitmentId = json['commitmentId'];
     title = json['title'];
-    creator = json['creator'] != null ? UserInfo.fromJson(json['creator']) : null;
+    description = json['description'];
     createDate = json['createDate'];
-    days = json['days'];
-    status = json['status'];
+    renewalPeriodDays = json['renewalPeriodDays'];
+    activity = json['activity'] != null ? CommitmentActivityInfo.fromJson(json['activity']) : null;
+    creator = json['creator'] != null ? UserInfo.fromJson(json['creator']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = id;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['commitmentId'] = commitmentId;
     data['title'] = title;
+    data['description'] = description;
+    data['createDate'] = createDate;
+    data['renewalPeriodDays'] = renewalPeriodDays;
+
+    if (activity != null) {
+      data['activity'] = activity!.toJson();
+    }
     if (creator != null) {
       data['creator'] = creator!.toJson();
     }
-    data['createDate'] = createDate;
-    data['days'] = days;
-    data['status'] = status;
+
     return data;
   }
 }

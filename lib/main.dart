@@ -1,4 +1,5 @@
 import 'package:commitment_client/provider/auth_provider.dart';
+import 'package:commitment_client/provider/commitment_provider.dart';
 import 'package:commitment_client/screens/splash_screen.dart';
 import 'package:commitment_client/service/api_client.dart';
 import 'package:commitment_client/service/auth_service.dart';
@@ -21,13 +22,15 @@ void main() async {
         ProxyProvider<ApiClient, CommitmentService>(
           update: (_, apiClient, __) => CommitmentService(apiClient),
         ),
+        ChangeNotifierProxyProvider<CommitmentService, CommitmentProvider>(
+          create: (context) => CommitmentProvider(Provider.of<CommitmentService>(context, listen: false)),
+          update: (context, commitmentService, previous) => CommitmentProvider(commitmentService),
+        ),
         ProxyProvider<ApiClient, AuthService>(update: (_, apiClient, __) => AuthService(apiClient)),
-        // ProxyProvider<AuthService, AuthProvider>(update: (_, authService, __) => AuthProvider(authService)),
         ChangeNotifierProxyProvider<AuthService, AuthProvider>(
           create: (context) => AuthProvider(Provider.of<AuthService>(context, listen: false)),
           update: (context, authService, previous) => AuthProvider(authService),
         ),
-        // ProxyProvider<ApiClient, AuthService>(update: (_, apiClient, __) => AuthService(apiClient)),
       ],
       child: const CommitmentApp(),
     ),

@@ -1,4 +1,5 @@
 import 'package:commitment_client/provider/auth_provider.dart';
+import 'package:commitment_client/screens/my_commitment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +24,7 @@ class LoginPage extends StatelessWidget {
     try {
       await authProvider.signUpGuest();
       showSuccessToast();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MyCommitmentPage()));
     } catch (e) {
       //
     }
