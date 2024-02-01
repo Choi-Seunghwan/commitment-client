@@ -1,3 +1,5 @@
+import 'package:commitment_client/screens/home_page.dart';
+import 'package:commitment_client/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,19 +24,15 @@ class SplashScreenState extends State<SplashScreen> {
     // token check
 
     if (isUserLoggedIn) {
-      // 사용자가 로그인한 경우 홈 페이지로 이동
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
     } else {
-      // 사용자가 로그인하지 않은 경우 로그인 페이지로 이동
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => LoginPage()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const LoginPage()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Text('Loading...'),
       ),
