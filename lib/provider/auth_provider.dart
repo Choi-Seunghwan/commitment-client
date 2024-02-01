@@ -16,9 +16,9 @@ class AuthProvider with ChangeNotifier {
   bool get isAuthenticated => _token != null;
 
   Future<void> signUpGuest() async {
-    dynamic data = await authService.signUpGuest();
-    _token = data.token;
-    _userMyInfo = data.userMyInfo;
+    Map<String, dynamic> data = await authService.signUpGuest();
+    _token = data['token'];
+    _userMyInfo = data['userMyInfo'];
     notifyListeners();
   }
 }
