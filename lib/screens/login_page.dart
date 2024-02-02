@@ -21,6 +21,7 @@ class LoginPage extends StatelessWidget {
 
   Future<void> signUpGuestHandler(BuildContext context) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
     try {
       await authProvider.signUpGuest();
       showSuccessToast();

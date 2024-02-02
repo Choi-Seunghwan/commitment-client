@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:commitment_client/environment.dart';
+import 'package:commitment_client/types/constant.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiClient {
   final String baseUrl;
@@ -11,33 +13,42 @@ class ApiClient {
         httpClient = client ?? http.Client();
 
   Future<Map<String, dynamic>> get(String path) async {
-    final response = await httpClient.get(Uri.parse('$baseUrl$path'));
+    final response = await httpClient.get(Uri.parse('$baseUrl$path'), headers: await _getHeaders());
     _handleResponse(response);
 
     return json.decode(response.body);
   }
 
+  Future<dynamic> _getHeaders() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userToken = prefs.getString(SharedPrefs.userToken);
+
+    final headers = {
+      'Content-Type': 'application/json',
+      if (userToken != null) 'Authorization': 'Bearer $userToken',
+    };
+
+    return headers;
+  }
+
   Future<Map<String, dynamic>> post(String path, [Map<String, dynamic>? data]) async {
     try {
-      print('here');
-
       final response = await httpClient.post(
         Uri.parse('$baseUrl$path'),
-        headers: {'Content-Type': 'application/json'},
+        headers: await _getHeaders(),
         body: data != null ? json.encode(data) : null,
       );
       _handleResponse(response);
       return json.decode(response.body);
     } catch (e) {
-      print('eerr');
-      throw Exception('hlehl');
+      throw Exception('post error');
     }
   }
 
   Future<Map<String, dynamic>> put(String path, [Map<String, dynamic>? data]) async {
     final response = await httpClient.post(
       Uri.parse('$baseUrl$path'),
-      headers: {'Content-Type': 'application/json'},
+      headers: await _getHeaders(),
       body: data != null ? json.encode(data) : null,
     );
     _handleResponse(response);
@@ -55,7 +66,6 @@ class ApiClient {
   }
 
   void _handleResponse(http.Response response) {
-    String a;
     if (response.statusCode < 200 || response.statusCode >= 300) {
       throw Exception(response);
     }

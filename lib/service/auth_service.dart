@@ -14,8 +14,10 @@ class AuthService {
     return {'token': token, 'userMyInfo': userMyInfo};
   }
 
-  Future<dynamic> signIn() async {
-    // final data = await apiClient.post('/auth/token');
-    // _userMyInfo = UserMyInfo.fromJson(data['user']);
+  Future<dynamic> signInToken() async {
+    final data = await apiClient.post('/auth/token');
+    dynamic userMyInfo = UserMyInfo.fromJson(data['user']);
+
+    return {'userMyInfo': userMyInfo};
   }
 }
