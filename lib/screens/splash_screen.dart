@@ -1,6 +1,6 @@
 import 'package:commitment_client/provider/auth_provider.dart';
-import 'package:commitment_client/screens/home_page.dart';
 import 'package:commitment_client/screens/login_page.dart';
+import 'package:commitment_client/screens/my_commitment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +36,7 @@ class SplashScreenState extends State<SplashScreen> {
     }
 
     if (!authProvider.isAuthenticated) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MyCommitmentPage()));
     } else {
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const LoginPage()));
     }

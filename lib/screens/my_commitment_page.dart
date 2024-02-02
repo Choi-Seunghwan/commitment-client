@@ -20,8 +20,7 @@ class _MyCommitmentPageState extends State<MyCommitmentPage> {
   }
 
   void onAddBtnHandler() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => AddCommitmentPage()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddCommitmentPage()));
   }
 
   @override
@@ -41,10 +40,7 @@ class _MyCommitmentPageState extends State<MyCommitmentPage> {
               height: 2.0,
             ),
           ),
-          actions: <Widget>[
-            IconButton(
-                onPressed: () => onAddBtnHandler(), icon: Icon(Icons.add))
-          ]),
+          actions: <Widget>[IconButton(onPressed: () => onAddBtnHandler(), icon: Icon(Icons.add))]),
       body: Container(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
         child: Column(

@@ -7,18 +7,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthProvider with ChangeNotifier {
   final AuthService authService;
 
-  AuthProvider(this.authService);
-
   String? _token;
   UserMyInfo? _userMyInfo;
 
   String? get token => _token;
   UserMyInfo? get userMyInfo => _userMyInfo;
-
   bool get isAuthenticated => _token != null && _userMyInfo != null;
 
+  AuthProvider(this.authService);
+
   Future<void> initUserAuth() async {
-    await loadUserToken();
+    await _loadUserToken();
 
     if (token != null) {
       await signInToken();
@@ -32,7 +31,7 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> loadUserToken() async {
+  Future<void> _loadUserToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     _token = prefs.getString(SharedPrefs.userToken);
 
