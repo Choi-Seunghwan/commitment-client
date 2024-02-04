@@ -6,15 +6,13 @@ class CommitmentProvider with ChangeNotifier {
   final CommitmentService commitmentService;
 
   List<CommitmentInfo>? userProgressCommitments;
-  List<CommitmentInfo>? userCompletedCommitments;
 
   CommitmentProvider(this.commitmentService);
 
-  Future<dynamic> getUserCommitments() async {
-    final result = await commitmentService.getUserCommitments();
+  Future<dynamic> getUserCommitments(String type, String status) async {
+    final result = await commitmentService.getUserCommitments(type, status);
 
-    userProgressCommitments = result['progressCommitments'];
-    userCompletedCommitments = result['completedCommitments'];
+    userProgressCommitments = result['commitments'];
 
     notifyListeners();
   }

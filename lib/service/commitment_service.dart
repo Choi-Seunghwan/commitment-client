@@ -17,12 +17,12 @@ class CommitmentService {
     return CommitmentInfo.fromJson(data);
   }
 
-  Future<dynamic> getUserCommitments() async {
-    final data = await apiClient.get('/commitment-activity');
-    List<CommitmentInfo> progressCommitments = (data['progressCommitments'] as List).map((c) => CommitmentInfo.fromJson(c)).toList();
-    List<CommitmentInfo> completedCommitments = (data['completedCommitments'] as List).map((c) => CommitmentInfo.fromJson(c)).toList();
+  Future<dynamic> getUserCommitments(type, status) async {
+    final Map<String, String> query = {type: type, status: status};
+    final data = await apiClient.get('/commitment-activity', query);
+    List<CommitmentInfo> commitments = (data['commitments'] as List).map((c) => CommitmentInfo.fromJson(c)).toList();
 
-    return {'progressCommitments': progressCommitments, 'completedCommitments': completedCommitments};
+    return {commitments: commitments};
   }
 
   Future<dynamic> renewCommitment(String commitmentId) async {

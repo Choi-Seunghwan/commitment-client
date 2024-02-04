@@ -5,7 +5,12 @@ class UserMyInfo {
   bool? isGuest;
   DateTime? createDate;
 
-  UserMyInfo({required this.id, required this.email, required this.nickname, required this.isGuest, required this.createDate});
+  UserMyInfo(
+      {required this.id,
+      required this.email,
+      required this.nickname,
+      required this.isGuest,
+      required this.createDate});
 
   UserMyInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'];

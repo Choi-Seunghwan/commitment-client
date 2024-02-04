@@ -12,13 +12,6 @@ class ApiClient {
       : baseUrl = Environment.baseUrl,
         httpClient = client ?? http.Client();
 
-  Future<Map<String, dynamic>> get(String path) async {
-    final response = await httpClient.get(Uri.parse('$baseUrl$path'), headers: await _getHeaders());
-    _handleResponse(response);
-
-    return json.decode(response.body);
-  }
-
   Future<dynamic> _getHeaders() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userToken = prefs.getString(SharedPrefs.userToken);
@@ -29,6 +22,13 @@ class ApiClient {
     };
 
     return headers;
+  }
+
+  Future<Map<String, dynamic>> get(String path, [Map<String, String>? query]) async {
+    final response = await httpClient.get(Uri.parse('$baseUrl$path').replace(queryParameters: query), headers: await _getHeaders());
+    _handleResponse(response);
+
+    return json.decode(response.body);
   }
 
   Future<Map<String, dynamic>> post(String path, [Map<String, dynamic>? data]) async {
