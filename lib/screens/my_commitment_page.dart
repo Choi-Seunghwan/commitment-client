@@ -30,7 +30,8 @@ class _MyCommitmentPageState extends State<MyCommitmentPage> {
         context: context,
         builder: (BuildContext context) {
           return const AddCommitmentBottomSheetWidget();
-        });
+        },
+        isScrollControlled: true);
   }
 
   @override
