@@ -39,8 +39,7 @@ class AddCommitmentPageState extends State<AddCommitmentPage> {
                   TextFormField(
                     controller: _titleController,
                     decoration: const InputDecoration(
-                        labelText: Strings.FORM_TEXT_TITLE,
-                        border: OutlineInputBorder()),
+                        labelText: Strings.FORM_TEXT_TITLE, border: OutlineInputBorder()),
                   ),
                   SizedBox(
                     height: 20,
@@ -48,8 +47,7 @@ class AddCommitmentPageState extends State<AddCommitmentPage> {
                   ElevatedButton(
                     onPressed: onConfirmBtnHandler,
                     child: Text(Strings.FORM_CONFIRM),
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: Size(double.infinity, 50)),
+                    style: ElevatedButton.styleFrom(minimumSize: Size(double.infinity, 50)),
                   )
                 ],
               ),

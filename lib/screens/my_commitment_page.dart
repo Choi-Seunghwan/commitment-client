@@ -1,7 +1,7 @@
 import 'package:commitment_client/provider/commitment_provider.dart';
-import 'package:commitment_client/screens/add_commitment_page.dart';
 import 'package:commitment_client/strings/strings.dart';
 import 'package:commitment_client/types/constant.dart';
+import 'package:commitment_client/widgets/add_commitment_modal_bottom_sheet.dart';
 import 'package:commitment_client/widgets/commitments_list.dart';
 import 'package:commitment_client/widgets/float_add_button.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +25,12 @@ class _MyCommitmentPageState extends State<MyCommitmentPage> {
         .getUserCommitments(CommitmentStatus.progress, CommitmentType.personal);
   }
 
-  void onAddBtnHandler() {
-    // Navigator.of      (context).push(MaterialPageRoute(builder: (context) => AddCommitmentPage()));
+  void onAddBtnHandler(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return const AddCommitmentBottomSheetWidget();
+        });
   }
 
   @override
@@ -60,7 +64,7 @@ class _MyCommitmentPageState extends State<MyCommitmentPage> {
       ),
       backgroundColor: const Color(0xffF0F4F7),
       floatingActionButton: FloatAddButton(
-        onPressed: () => (),
+        onPressed: () => onAddBtnHandler(context),
       ),
     );
   }
