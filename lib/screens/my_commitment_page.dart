@@ -29,7 +29,7 @@ class _MyCommitmentPageState extends State<MyCommitmentPage> {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          return const AddCommitmentBottomSheetWidget();
+          return const AddCommitmentBottomSheet();
         },
         isScrollControlled: true);
   }
