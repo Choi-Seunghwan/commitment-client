@@ -12,4 +12,7 @@ class Strings {
   // FORM
   static const String FORM_TEXT_TITLE = '예) 나의 좌우명 지켜가기';
   static const String FORM_CONFIRM = '완료';
+
+  // TOAST Mesage
+  static const String TOAST_WELCOME_SIGN_IN = '로그인 성공! 환영합니다~';
 }

@@ -4,41 +4,42 @@ import 'package:commitment_client/screens/my_commitment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashInitPage extends StatefulWidget {
+  const SplashInitPage({super.key});
 
   @override
-  SplashScreenState createState() => SplashScreenState();
+  SplashInitPageState createState() => SplashInitPageState();
 }
 
-class SplashScreenState extends State<SplashScreen> {
+class SplashInitPageState extends State<SplashInitPage> {
   @override
   void initState() {
     super.initState();
-    _startInitialization();
+    _bootInitialization();
   }
 
   /// 앱 초기화 로직.
   /// todo: Page와 초기 로직 분리가 되어야 함
   /// 기본 4초 스플래시 화면이 보여짐.
-  Future<void> _startInitialization() async {
+  Future<void> _bootInitialization() async {
     final splashDelay = Future.delayed(const Duration(seconds: 4));
-    final initCheckLogin = _checkIsLogin();
+    final initCheckAuth = _checkAuth();
 
-    await Future.wait([splashDelay, initCheckLogin]);
+    await Future.wait([splashDelay, initCheckAuth]);
   }
 
-  Future<void> _checkIsLogin() async {
+  Future<void> _checkAuth() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     if (!authProvider.isAuthenticated) {
       await authProvider.initUserAuth();
     }
 
-    if (!authProvider.isAuthenticated) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MyCommitmentPage()));
-    } else {
+    if (authProvider.isAuthenticated) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const LoginPage()));
+    } else {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (_) => const MyCommitmentPage()));
     }
   }
 

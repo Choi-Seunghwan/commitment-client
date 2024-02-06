@@ -1,6 +1,6 @@
 import 'package:commitment_client/provider/auth_provider.dart';
 import 'package:commitment_client/provider/commitment_provider.dart';
-import 'package:commitment_client/screens/splash_screen.dart';
+import 'package:commitment_client/screens/splash_init_page.dart';
 import 'package:commitment_client/service/api_client.dart';
 import 'package:commitment_client/service/auth_service.dart';
 import 'package:commitment_client/service/commitment_service.dart';
@@ -12,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env.dev");
+  // await dotenv.load(fileName: ".env.prod");
 
   runApp(
     MultiProvider(
@@ -23,7 +24,8 @@ void main() async {
           update: (_, apiClient, __) => CommitmentService(apiClient),
         ),
         ChangeNotifierProxyProvider<CommitmentService, CommitmentProvider>(
-          create: (context) => CommitmentProvider(Provider.of<CommitmentService>(context, listen: false)),
+          create: (context) =>
+              CommitmentProvider(Provider.of<CommitmentService>(context, listen: false)),
           update: (context, commitmentService, previous) => CommitmentProvider(commitmentService),
         ),
         ProxyProvider<ApiClient, AuthService>(update: (_, apiClient, __) => AuthService(apiClient)),
@@ -48,6 +50,6 @@ class CommitmentApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const SplashScreen());
+        home: const SplashInitPage());
   }
 }
