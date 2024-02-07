@@ -4,12 +4,15 @@ import 'package:commitment_client/screens/my_commitment_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
+
   final List<Widget> _pages = [
     MyCommitmentPage(),
     HomePage(),
