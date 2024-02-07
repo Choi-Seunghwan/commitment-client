@@ -1,7 +1,10 @@
+import 'package:commitment_client/provider/commitment_provider.dart';
 import 'package:commitment_client/strings/strings.dart';
 import 'package:commitment_client/types/constant.dart';
 import 'package:commitment_client/widgets/period_slider.dart';
+import 'package:commitment_client/widgets/square_radio_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddCommitmentBottomSheet extends StatefulWidget {
   const AddCommitmentBottomSheet({
@@ -32,9 +35,28 @@ class AddCommitmentBottomSheetState extends State<AddCommitmentBottomSheet> {
     });
   }
 
+  void typeChangeHandler(String newValue) {
+    setState(() {
+      _type = newValue;
+    });
+  }
+
   void confirmBtnHandler() async {
-    // await post
-    Navigator.of(context).pop();
+    if (_formKey.currentState!.validate()) {
+      String title = _titleController.text;
+      String description = _descriptionController.text;
+      String type = _type;
+      int renewalPeriodDays = _period.toInt();
+      await Provider.of<CommitmentProvider>(context, listen: false)
+          .createCommitment(title, type, description, renewalPeriodDays);
+
+      await Provider.of<CommitmentProvider>(context, listen: false)
+          .getUserCommitments(type: type, status: CommitmentStatus.progress);
+
+      Navigator.of(context).pop();
+    } else {
+      // @todo : show Toast
+    }
   }
 
   @override
@@ -51,12 +73,11 @@ class AddCommitmentBottomSheetState extends State<AddCommitmentBottomSheet> {
             heightFactor: 3,
             child: Icon(Icons.close),
           ),
-          const Center(
-            child: ListTile(
-                title: const Text('다짐 유형'),
-                leading:
-                    Radio(value: CommitmentType.personal, groupValue: _type, onChanged: onChanged)),
-          ),
+          Center(
+              child: SquareRadioButtonsGroup(
+                  options: const [CommitmentType.public, CommitmentType.personal],
+                  selectedValue: _type,
+                  onValueChanged: typeChangeHandler)),
           const Center(
             child: Text(
               Strings.UI_ADD_COMMITMENT_TITLE,
@@ -82,7 +103,7 @@ class AddCommitmentBottomSheetState extends State<AddCommitmentBottomSheet> {
                   TextFormField(
                     controller: _descriptionController,
                     decoration: const InputDecoration(
-                        labelText: Strings.FORM_TEXT_TITLE, border: OutlineInputBorder()),
+                        labelText: Strings.FORM_TEXT_DESCRIPTION, border: OutlineInputBorder()),
                   ),
                   const SizedBox(
                     height: 20,

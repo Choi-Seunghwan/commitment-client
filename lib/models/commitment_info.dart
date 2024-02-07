@@ -2,32 +2,32 @@ import 'package:commitment_client/models/commitment_activity_info.dart';
 import 'package:commitment_client/models/user_info.dart';
 
 class CommitmentInfo {
-  String? commitmentId;
-  String? title;
+  String commitmentId;
+  String title;
   String? description;
-  String? createDate;
-  int? renewalPeriodDays;
+  String createDate;
+  int renewalPeriodDays;
   CommitmentActivityInfo? activity;
   UserInfo? creator;
 
   CommitmentInfo(
       {required this.commitmentId,
       required this.title,
-      required this.description,
+      this.description,
       required this.createDate,
       required this.renewalPeriodDays,
-      required this.activity,
-      required this.creator});
+      this.activity,
+      this.creator});
 
-  CommitmentInfo.fromJson(Map<String, dynamic> json) {
-    commitmentId = json['commitmentId'];
-    title = json['title'];
-    description = json['description'];
-    createDate = json['createDate'];
-    renewalPeriodDays = json['renewalPeriodDays'];
-    activity = json['activity'] != null ? CommitmentActivityInfo.fromJson(json['activity']) : null;
-    creator = json['creator'] != null ? UserInfo.fromJson(json['creator']) : null;
-  }
+  CommitmentInfo.fromJson(Map<String, dynamic> json)
+      : commitmentId = json['commitmentId'] as String,
+        title = json['title'],
+        description = json['description'] as String?,
+        createDate = json['createDate'],
+        renewalPeriodDays = json['renewalPeriodDays'],
+        activity =
+            json['activity'] != null ? CommitmentActivityInfo.fromJson(json['activity']) : null,
+        creator = json['creator'] != null ? UserInfo.fromJson(json['creator']) : null;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

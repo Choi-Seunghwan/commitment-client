@@ -1,6 +1,7 @@
 import 'package:commitment_client/models/user_my_info.dart';
 import 'package:commitment_client/service/auth_service.dart';
 import 'package:commitment_client/types/constant.dart';
+import 'package:commitment_client/utils/toast_util.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,11 +51,17 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> signInToken() async {
-    Map<String, dynamic> data = await authService.signUpGuest();
-    _token = data['token'];
-    _userMyInfo = data['userMyInfo'];
+    try {
+      Map<String, dynamic> data = await authService.signInToken();
+      _userMyInfo = data['userMyInfo'];
 
-    await _saveUserTokenToPrefs(token);
-    notifyListeners();
+      notifyListeners();
+    } catch (e) {
+      showWarringToast('fail signIn');
+    }
+
+    // @todo : need refresh token
+    // _token = data['token'];
+    // await _saveUserTokenToPrefs(token);
   }
 }

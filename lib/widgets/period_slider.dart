@@ -29,7 +29,7 @@ class PeriodSliderState extends State<PeriodSlider> {
             widget.onValueChange(value);
           },
         ),
-        Text('${_currentSliderValue.toStringAsFixed(2)} 일 이내'),
+        Text('${_currentSliderValue.toStringAsFixed(0)} 일 이내'),
         const Text('다음 갱신 마감일 x월 x일 자정'),
       ],
     );

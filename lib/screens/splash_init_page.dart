@@ -1,6 +1,6 @@
 import 'package:commitment_client/provider/auth_provider.dart';
 import 'package:commitment_client/screens/login_page.dart';
-import 'package:commitment_client/screens/my_commitment_page.dart';
+import 'package:commitment_client/screens/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,11 +35,10 @@ class SplashInitPageState extends State<SplashInitPage> {
       await authProvider.initUserAuth();
     }
 
-    if (authProvider.isAuthenticated) {
+    if (!authProvider.isAuthenticated) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const LoginPage()));
     } else {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => const MyCommitmentPage()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MainPage()));
     }
   }
 

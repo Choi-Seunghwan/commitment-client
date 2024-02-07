@@ -24,7 +24,7 @@ class SquareRadioButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       ),
       onPressed: () => onChanged(value),
       child: Text(label),
@@ -59,7 +59,7 @@ class _SquareRadioButtonsGroupState extends State<SquareRadioButtonsGroup> {
           padding: const EdgeInsets.all(8.0),
           child: SquareRadioButton(
             value: option,
-            groupValue: _selectedValue!,
+            groupValue: _selectedValue,
             onChanged: (newValue) {
               setState(() {
                 _selectedValue = newValue;

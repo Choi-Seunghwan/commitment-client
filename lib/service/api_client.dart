@@ -25,10 +25,16 @@ class ApiClient {
   }
 
   Future<Map<String, dynamic>> get(String path, [Map<String, String>? query]) async {
-    final response = await httpClient.get(Uri.parse('$baseUrl$path').replace(queryParameters: query), headers: await _getHeaders());
-    _handleResponse(response);
+    try {
+      final response = await httpClient.get(
+          Uri.parse('$baseUrl$path').replace(queryParameters: query),
+          headers: await _getHeaders());
+      _handleResponse(response);
 
-    return json.decode(response.body);
+      return json.decode(response.body);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   Future<Map<String, dynamic>> post(String path, [Map<String, dynamic>? data]) async {
@@ -41,28 +47,36 @@ class ApiClient {
       _handleResponse(response);
       return json.decode(response.body);
     } catch (e) {
-      throw Exception('post error');
+      throw Exception(e);
     }
   }
 
   Future<Map<String, dynamic>> put(String path, [Map<String, dynamic>? data]) async {
-    final response = await httpClient.post(
-      Uri.parse('$baseUrl$path'),
-      headers: await _getHeaders(),
-      body: data != null ? json.encode(data) : null,
-    );
-    _handleResponse(response);
+    try {
+      final response = await httpClient.post(
+        Uri.parse('$baseUrl$path'),
+        headers: await _getHeaders(),
+        body: data != null ? json.encode(data) : null,
+      );
+      _handleResponse(response);
 
-    return json.decode(response.body);
+      return json.decode(response.body);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   Future<Map<String, dynamic>> delete(String path) async {
-    final response = await httpClient.delete(
-      Uri.parse('$baseUrl$path'),
-    );
-    _handleResponse(response);
+    try {
+      final response = await httpClient.delete(
+        Uri.parse('$baseUrl$path'),
+      );
+      _handleResponse(response);
 
-    return json.decode(response.body);
+      return json.decode(response.body);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   void _handleResponse(http.Response response) {

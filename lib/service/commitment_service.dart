@@ -8,28 +8,31 @@ class CommitmentService {
   CommitmentService(this.apiClient);
 
   Future<List<CommitmentInfo>> getCommitments() async {
-    final data = await apiClient.get('/');
+    final data = await apiClient.get('/commitment');
     return (data as List).map((itemJson) => CommitmentInfo.fromJson(itemJson)).toList();
   }
 
   Future<CommitmentInfo> createCommitment(CreateCommitmentReq req) async {
-    final data = await apiClient.post('/', req.toJson());
-    return CommitmentInfo.fromJson(data);
+    final data = await apiClient.post('/commitment', req.toJson());
+    CommitmentInfo commitmentInfo = CommitmentInfo.fromJson(data['commitment']);
+
+    return commitmentInfo;
   }
 
-  Future<dynamic> getUserCommitments(type, status) async {
-    final Map<String, String> query = {type: type, status: status};
+  Future<List<CommitmentInfo>> getUserCommitments(type, status) async {
+    final Map<String, String> query = {'type': type, 'status': status};
     final data = await apiClient.get('/commitment-activity', query);
-    List<CommitmentInfo> commitments = (data['commitments'] as List).map((c) => CommitmentInfo.fromJson(c)).toList();
+    List<CommitmentInfo> commitmentInfos =
+        (data['commitments'] as List).map((c) => CommitmentInfo.fromJson(c)).toList();
 
-    return {commitments: commitments};
+    return commitmentInfos;
   }
 
-  Future<dynamic> renewCommitment(String commitmentId) async {
+  Future<CommitmentInfo> renewCommitment(String commitmentId) async {
     final data = await apiClient.post('/commitment-activity/$commitmentId/renew');
-    dynamic commitment = CommitmentInfo.fromJson(data['commitment']);
+    CommitmentInfo commitmentInfo = CommitmentInfo.fromJson(data['commitment']);
 
-    return {commitment: commitment};
+    return commitmentInfo;
   }
 
   Future<dynamic> completeCommitment(String commitmentId) async {
