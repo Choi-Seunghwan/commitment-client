@@ -11,6 +11,7 @@ class Strings {
   static const String UI_COMMITMENT_RENEW = '다짐하기';
   static const String UI_COMMITMENT_RENEW_SUCCESS = '다짐하기';
   static const String UI_ADD_COMMITMENT_TITLE = '만들기';
+  static const String UI_FORMANT_EXPIRATION = '일 후 자동으로 완료 됩니다.';
 
   // FORM
   static const String FORM_TEXT_TITLE = '다짐 제목';

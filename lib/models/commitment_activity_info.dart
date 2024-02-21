@@ -2,7 +2,7 @@ class CommitmentActivityInfo {
   String? commitmentActivityId;
   bool? isActive;
   DateTime renewalDate;
-  DateTime? expirationDate;
+  DateTime expirationDate;
   DateTime? completeDate;
   int? processDays;
   String? status;

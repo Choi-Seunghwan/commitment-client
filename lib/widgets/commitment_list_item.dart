@@ -1,5 +1,6 @@
 import 'package:commitment_client/models/commitment_info.dart';
 import 'package:commitment_client/strings/strings.dart';
+import 'package:commitment_client/utils/time_util.dart';
 import 'package:flutter/material.dart';
 
 class CommitmentListItem extends StatelessWidget {
@@ -46,7 +47,7 @@ class CommitmentListItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('${commitment.activity!.expirationDate} 다짐 마감'),
+                    Text(formatExpirationDate(commitment.activity!.expirationDate)),
                     isRenewedToday
                         ? Text('오늘의 다짐 성공')
                         : ElevatedButton(
