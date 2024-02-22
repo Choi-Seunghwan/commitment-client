@@ -49,7 +49,7 @@ class CommitmentListItem extends StatelessWidget {
                   children: [
                     Text(formatExpirationDate(commitment.activity!.expirationDate)),
                     isRenewedToday
-                        ? Text('오늘의 다짐 성공')
+                        ? Text('성공!')
                         : ElevatedButton(
                             onPressed: onPressed,
                             child: const Text(Strings.UI_COMMITMENT_RENEW),
