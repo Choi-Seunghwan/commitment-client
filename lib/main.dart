@@ -47,7 +47,16 @@ class CommitmentApp extends StatelessWidget {
     return MaterialApp(
         title: 'Commitment',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          brightness: Brightness.dark,
+          primaryColor: Colors.yellow.shade400,
+          hintColor: Colors.white,
+          scaffoldBackgroundColor: Colors.black,
+          cardColor: Colors.grey[900],
+          textTheme: const TextTheme(
+            bodyLarge: TextStyle(color: Colors.white),
+            bodyMedium: TextStyle(color: Colors.white),
+            // 다른 텍스트 스타일도 여기에 추가할 수 있습니다.
+          ),
           useMaterial3: true,
         ),
         home: const SplashInitPage());

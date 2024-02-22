@@ -14,8 +14,8 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    MyCommitmentPage(),
-    HomePage(),
+    const HomePage(),
+    const MyCommitmentPage(),
   ];
 
   void _onItemTapped(int index) {
