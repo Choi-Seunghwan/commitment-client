@@ -1,5 +1,6 @@
 import 'package:commitment_client/models/commitment_info.dart';
 import 'package:commitment_client/provider/commitment_provider.dart';
+import 'package:commitment_client/strings/strings.dart';
 import 'package:commitment_client/types/constant.dart';
 import 'package:commitment_client/screens/add_commitment_modal_bottom_sheet.dart';
 import 'package:commitment_client/widgets/commitments_list.dart';
@@ -37,12 +38,31 @@ class _MyCommitmentPageState extends State<MyCommitmentPage> {
   }
 
   void onAddBtnHandler(BuildContext context) {
+    /*
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
           return const AddCommitmentBottomSheet();
         },
         isScrollControlled: true);
+    */
+
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => const AddCommitmentBottomSheet(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = const Offset(0.0, 1.0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    ));
   }
 
   Future<void> onRenewBtnHandler(CommitmentInfo cm) async {
@@ -55,19 +75,13 @@ class _MyCommitmentPageState extends State<MyCommitmentPage> {
         Provider.of<CommitmentProvider>(context).userProgressCommitments ?? [];
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text(
-      //     Strings.NAV_MY_COMMITMENTS,
-      //   ),
-      //   backgroundColor: const Color(0xffFFFFFF),
-      //   bottom: PreferredSize(
-      //     preferredSize: const Size.fromHeight(2.0),
-      //     child: Container(
-      //       color: const Color(0xffEEEEEE),
-      //       height: 2.0,
-      //     ),
-      //   ),
-      // ),
+      appBar: AppBar(
+        title: const Text(
+          Strings.NAV_MY_COMMITMENTS,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.black,
+      ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
         child: Column(
@@ -81,7 +95,6 @@ class _MyCommitmentPageState extends State<MyCommitmentPage> {
           ],
         ),
       ),
-      backgroundColor: const Color(0xffF0F4F7),
       floatingActionButton: FloatAddButton(
         onPressed: () => onAddBtnHandler(context),
       ),

@@ -29,8 +29,11 @@ class PeriodSliderState extends State<PeriodSlider> {
             widget.onValueChange(value);
           },
         ),
-        Text('${_currentSliderValue.toStringAsFixed(0)} 일 이내'),
-        const Text('다음 갱신 마감일 x월 x일 자정'),
+        Text(
+          '${_currentSliderValue.toStringAsFixed(0)}일',
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const Text('x월 x일에까지 다시 다짐 가능'),
       ],
     );
   }

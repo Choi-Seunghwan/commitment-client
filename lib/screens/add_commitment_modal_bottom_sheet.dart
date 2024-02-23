@@ -3,7 +3,9 @@ import 'package:commitment_client/strings/strings.dart';
 import 'package:commitment_client/types/constant.dart';
 import 'package:commitment_client/widgets/period_slider.dart';
 import 'package:commitment_client/widgets/square_radio_button.dart';
+import 'package:commitment_client/widgets/sub_title.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class AddCommitmentBottomSheet extends StatefulWidget {
@@ -61,62 +63,110 @@ class AddCommitmentBottomSheetState extends State<AddCommitmentBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(30),
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Align(
-            alignment: Alignment.topRight,
-            heightFactor: 3,
-            child: Icon(Icons.close),
-          ),
-          Center(
-              child: SquareRadioButtonsGroup(
-                  options: const [CommitmentType.public, CommitmentType.personal],
-                  selectedValue: _type,
-                  onValueChanged: typeChangeHandler)),
-          const Center(
-            child: Text(
-              Strings.UI_ADD_COMMITMENT_TITLE,
-              style: TextStyle(fontSize: 18.0),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: const Text(
+          Strings.UI_ADD_COMMITMENT_TITLE,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.black,
+      ),
+      body: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: _titleController,
+                      decoration: const InputDecoration(
+                          labelText: Strings.FORM_TEXT_TITLE, border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: _descriptionController,
+                      decoration: const InputDecoration(
+                          labelText: Strings.FORM_TEXT_DESCRIPTION, border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      const SubTitle(title: '다짐 유형'),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: SquareRadioButtonsGroup(options: [
+                          SquareRadioModel(
+                              value: CommitmentType.personal, label: Strings.FORM_TYPE_PERSONAL),
+                          SquareRadioModel(
+                              value: CommitmentType.public, label: Strings.FORM_TYPE_PUBLIC),
+                        ], selectedValue: _type, onValueChanged: typeChangeHandler),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      RichText(
+                        text: const TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '나만의 다짐',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(text: '으로 나만의 다짐을 지켜갈 수 있어요'),
+                          ],
+                        ),
+                      ),
+                      RichText(
+                        text: const TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '모두의 다짐',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(text: '으로 다함께 다짐을 지켜갈 수 있어요'),
+                          ],
+                        ),
+                      )
+                    ]),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    const SubTitle(title: '다시 다짐하기 기간'),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    PeriodSlider(onValueChange: periodSliderChangeHandler),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text("기간 내에 다시 다짐하기 버튼을 눌러 목표를 이어갈 수 있어요")
+                  ],
+                )),
+            Expanded(
+                child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ElevatedButton(
+                onPressed: confirmBtnHandler,
+                style: ElevatedButton.styleFrom(minimumSize: const Size(double.infinity, 50)),
+                child: const Text(Strings.FORM_CREATE),
+              ),
+            )),
+            const SizedBox(
+              height: 50,
             ),
-          ),
-          Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  const Text('Title'),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _titleController,
-                    decoration: const InputDecoration(
-                        labelText: Strings.FORM_TEXT_TITLE, border: OutlineInputBorder()),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _descriptionController,
-                    decoration: const InputDecoration(
-                        labelText: Strings.FORM_TEXT_DESCRIPTION, border: OutlineInputBorder()),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  PeriodSlider(onValueChange: periodSliderChangeHandler),
-                  ElevatedButton(
-                    onPressed: confirmBtnHandler,
-                    style: ElevatedButton.styleFrom(minimumSize: const Size(double.infinity, 50)),
-                    child: const Text(Strings.FORM_CONFIRM),
-                  )
-                ],
-              ))
-        ],
+          ],
+        ),
       ),
     );
   }

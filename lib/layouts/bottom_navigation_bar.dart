@@ -10,17 +10,16 @@ class MyBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(icon: Icon(Icons.travel_explore), label: Strings.NAV_HOME),
         BottomNavigationBarItem(
           icon: Icon(Icons.accessibility_new),
-          label: Strings.NAV_MY_COMMITMENTS,
+          label: Strings.NAV_COMMITMENTS,
         ),
-        BottomNavigationBarItem(icon: Icon(Icons.travel_explore), label: Strings.NAV_HOME)
       ],
       currentIndex: selectedIndex,
       onTap: onItemTapped,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
     );
   }
 }
