@@ -1,5 +1,9 @@
 import 'package:commitment_client/strings/strings.dart';
 
+// String calcPeriodExpirationDate(DateTime date) {
+
+// }
+
 String formatExpirationDate(DateTime date) {
   DateTime now = DateTime.now();
   Duration difference = date.difference(now);

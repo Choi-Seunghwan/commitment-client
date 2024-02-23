@@ -21,7 +21,12 @@ class CommitmentListItem extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  '+${commitment.activity?.processDays}',
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                ),
                 Row(children: [
                   Expanded(
                       child: Column(children: [
@@ -40,9 +45,9 @@ class CommitmentListItem extends StatelessWidget {
                       child: Text(commitment.description ?? ''),
                     )
                   ])),
-                  const Column(children: [
-                    Icon(Icons.more_horiz),
-                  ]),
+                  // const Column(children: [
+                  //   Icon(Icons.more_horiz),
+                  // ]),
                 ]),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

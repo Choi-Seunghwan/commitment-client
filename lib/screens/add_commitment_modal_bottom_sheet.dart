@@ -123,7 +123,7 @@ class AddCommitmentBottomSheetState extends State<AddCommitmentBottomSheet> {
                               text: '나만의 다짐',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            TextSpan(text: '으로 나만의 다짐을 지켜갈 수 있어요'),
+                            TextSpan(text: '으로 나의 목표를 이뤄보아요'),
                           ],
                         ),
                       ),
@@ -134,7 +134,7 @@ class AddCommitmentBottomSheetState extends State<AddCommitmentBottomSheet> {
                               text: '모두의 다짐',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            TextSpan(text: '으로 다함께 다짐을 지켜갈 수 있어요'),
+                            TextSpan(text: '으로 다함께 목표를 이뤄보아요'),
                           ],
                         ),
                       )
