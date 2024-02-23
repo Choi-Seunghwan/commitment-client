@@ -47,18 +47,48 @@ class CommitmentApp extends StatelessWidget {
     return MaterialApp(
         title: 'Commitment',
         theme: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: Colors.yellow.shade400,
-          hintColor: Colors.white,
-          scaffoldBackgroundColor: Colors.black,
-          cardColor: Colors.grey[900],
-          textTheme: const TextTheme(
-            bodyLarge: TextStyle(color: Colors.white),
-            bodyMedium: TextStyle(color: Colors.white),
-            // 다른 텍스트 스타일도 여기에 추가할 수 있습니다.
-          ),
-          useMaterial3: true,
-        ),
+            brightness: Brightness.dark,
+            primaryColor: Colors.yellow.shade400,
+            primarySwatch: Colors.yellow,
+            hintColor: Colors.white,
+            scaffoldBackgroundColor: Colors.black,
+            textTheme: const TextTheme(
+              bodyLarge: TextStyle(color: Colors.white),
+              bodyMedium: TextStyle(color: Colors.white),
+            ),
+            colorScheme: ColorScheme.fromSwatch(
+              brightness: Brightness.dark,
+              primarySwatch: Colors.yellow,
+            ).copyWith(secondary: Colors.yellow.shade400),
+            useMaterial3: false,
+            // inputDecorationTheme: const InputDecorationTheme(
+            //     border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            //     enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            //     labelStyle: TextStyle(color: Colors.white)),
+
+            // sliderTheme: SliderThemeData(
+            //   activeTrackColor: Colors.yellow.shade400,
+            //   thumbColor: Colors.yellow.shade400,
+            //   overlayColor: Colors.yellow.shade400.withOpacity(0.2),
+            // ),
+
+            elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.selected)) {
+                    return Colors.yellow.shade400; // 선택된 상태
+                  }
+                  return Colors.grey.shade800; // 비선택된 상태
+                },
+              ),
+              foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.selected)) return Colors.black; // 선택된 상태의 글자 색상
+                  return Colors.white; // 비선택된 상태의 글자 색상
+                },
+              ),
+            ))),
         home: const SplashInitPage());
   }
 }
