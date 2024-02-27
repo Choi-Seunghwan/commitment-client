@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:commitment_client/environment.dart';
+import 'package:commitment_client/strings/strings.dart';
 import 'package:commitment_client/types/constant.dart';
+import 'package:commitment_client/utils/toast_util.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,6 +35,8 @@ class ApiClient {
 
       return json.decode(response.body);
     } catch (e) {
+      showSuccessToast(Strings.TOAST_API_ERROR);
+
       throw Exception(e);
     }
   }
@@ -47,6 +51,8 @@ class ApiClient {
       _handleResponse(response);
       return json.decode(response.body);
     } catch (e) {
+      showSuccessToast(Strings.TOAST_API_ERROR);
+
       throw Exception(e);
     }
   }
@@ -62,6 +68,8 @@ class ApiClient {
 
       return json.decode(response.body);
     } catch (e) {
+      showSuccessToast(Strings.TOAST_API_ERROR);
+
       throw Exception(e);
     }
   }
@@ -75,6 +83,8 @@ class ApiClient {
 
       return json.decode(response.body);
     } catch (e) {
+      showSuccessToast(Strings.TOAST_API_ERROR);
+
       throw Exception(e);
     }
   }

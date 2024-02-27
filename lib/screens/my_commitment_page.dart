@@ -5,6 +5,7 @@ import 'package:commitment_client/types/constant.dart';
 import 'package:commitment_client/screens/add_commitment_modal_bottom_sheet.dart';
 import 'package:commitment_client/widgets/commitments_list.dart';
 import 'package:commitment_client/widgets/float_add_button.dart';
+import 'package:commitment_client/widgets/sub_title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,8 @@ class MyCommitmentPage extends StatefulWidget {
 }
 
 class _MyCommitmentPageState extends State<MyCommitmentPage> {
-  List<CommitmentInfo> _userProgressCommitments = [];
+  List<CommitmentInfo> _userPersonalCommitments = [];
+  List<CommitmentInfo> _userPublicCommitments = [];
 
   @override
   void initState() {
@@ -28,12 +30,17 @@ class _MyCommitmentPageState extends State<MyCommitmentPage> {
   }
 
   Future<void> initProgressCommitmets() async {
-    List<CommitmentInfo> userProgressCommitments =
+    List<CommitmentInfo> userPersonalCommitments =
         await Provider.of<CommitmentProvider>(context, listen: false)
             .getUserCommitments(type: CommitmentType.personal, status: CommitmentStatus.progress);
 
+    List<CommitmentInfo> userPublicCommitments =
+        await Provider.of<CommitmentProvider>(context, listen: false)
+            .getUserCommitments(type: CommitmentType.public, status: CommitmentStatus.progress);
+
     setState(() {
-      _userProgressCommitments = userProgressCommitments;
+      _userPersonalCommitments = userPersonalCommitments;
+      _userPublicCommitments = userPublicCommitments;
     });
   }
 
@@ -71,9 +78,6 @@ class _MyCommitmentPageState extends State<MyCommitmentPage> {
 
   @override
   Widget build(BuildContext context) {
-    final userProgressCommitments =
-        Provider.of<CommitmentProvider>(context).userProgressCommitments ?? [];
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -87,9 +91,16 @@ class _MyCommitmentPageState extends State<MyCommitmentPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            const SubTitle(title: Strings.UI_PUBLIC_COMMITMENT),
             Expanded(
                 child: CommitmentsList(
-              commitments: _userProgressCommitments,
+              commitments: _userPublicCommitments,
+              onRenewBtnPress: onRenewBtnHandler,
+            )),
+            const SubTitle(title: Strings.UI_PERSONAL_COMMITMENT),
+            Expanded(
+                child: CommitmentsList(
+              commitments: _userPersonalCommitments,
               onRenewBtnPress: onRenewBtnHandler,
             )),
           ],

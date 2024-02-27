@@ -1,32 +1,40 @@
 import 'package:commitment_client/models/commitment_info.dart';
 import 'package:commitment_client/service/commitment_service.dart';
+import 'package:commitment_client/types/constant.dart';
 import 'package:commitment_client/types/create_commitment_req.dart';
 import 'package:flutter/material.dart';
 
 class CommitmentProvider with ChangeNotifier {
   final CommitmentService commitmentService;
 
-  List<CommitmentInfo>? userProgressCommitments;
+  List<CommitmentInfo>? userPersonalCommitments;
+  List<CommitmentInfo>? userPublicCommitments;
 
   CommitmentProvider(this.commitmentService);
 
   void _updateCommitmentInList(CommitmentInfo updatedCommitment) {
-    int index = userProgressCommitments?.indexWhere(
+    int index = userPersonalCommitments?.indexWhere(
             (commitment) => commitment.commitmentId == updatedCommitment.commitmentId) ??
         -1;
     if (index != -1) {
-      userProgressCommitments![index] = updatedCommitment;
+      userPersonalCommitments![index] = updatedCommitment;
       notifyListeners();
     }
   }
 
   Future<List<CommitmentInfo>> getUserCommitments(
       {required String type, required String status}) async {
-    userProgressCommitments = await commitmentService.getUserCommitments(type, status);
+    final userCommitments = await commitmentService.getUserCommitments(type, status);
+
+    if (type == CommitmentType.personal) {
+      userPersonalCommitments = userCommitments;
+    } else if (type == CommitmentType.public) {
+      userPublicCommitments = userCommitments;
+    }
 
     notifyListeners();
 
-    return userProgressCommitments ?? [];
+    return userCommitments ?? [];
   }
 
   Future<CommitmentInfo> createCommitment(
@@ -40,8 +48,12 @@ class CommitmentProvider with ChangeNotifier {
     return commitmentInfo;
   }
 
-  Future<CommitmentInfo> renewCommitment(String commitmentId) async {
-    CommitmentInfo commitmentInfo = await commitmentService.renewCommitment(commitmentId);
+  Future<CommitmentInfo?> renewCommitment(String commitmentId) async {
+    CommitmentInfo? commitmentInfo = await commitmentService.renewCommitment(commitmentId);
+
+    if (commitmentInfo == null) {
+      return null;
+    }
 
     _updateCommitmentInList(commitmentInfo);
     notifyListeners();

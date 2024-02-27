@@ -1,3 +1,4 @@
+import 'package:commitment_client/widgets/sub_title.dart';
 import 'package:flutter/material.dart';
 
 import '../strings/strings.dart';
@@ -15,8 +16,8 @@ class HomePage extends StatelessWidget {
         ),
         backgroundColor: Colors.black,
       ),
-      body: Center(
-        child: Text("Home Page"),
+      body: const Column(
+        children: [SubTitle(title: '')],
       ),
       backgroundColor: Colors.black,
     );

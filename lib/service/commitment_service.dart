@@ -28,11 +28,15 @@ class CommitmentService {
     return commitmentInfos;
   }
 
-  Future<CommitmentInfo> renewCommitment(String commitmentId) async {
-    final data = await apiClient.post('/commitment-activity/$commitmentId/renew');
-    CommitmentInfo commitmentInfo = CommitmentInfo.fromJson(data['commitment']);
+  Future<CommitmentInfo?> renewCommitment(String commitmentId) async {
+    try {
+      final data = await apiClient.post('/commitment-activity/$commitmentId/renew');
+      CommitmentInfo commitmentInfo = CommitmentInfo.fromJson(data['commitment']);
 
-    return commitmentInfo;
+      return commitmentInfo;
+    } catch (e) {
+      return null;
+    }
   }
 
   Future<dynamic> completeCommitment(String commitmentId) async {

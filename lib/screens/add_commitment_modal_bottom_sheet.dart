@@ -5,7 +5,6 @@ import 'package:commitment_client/widgets/period_slider.dart';
 import 'package:commitment_client/widgets/square_radio_button.dart';
 import 'package:commitment_client/widgets/sub_title.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class AddCommitmentBottomSheet extends StatefulWidget {
@@ -100,7 +99,7 @@ class AddCommitmentBottomSheetState extends State<AddCommitmentBottomSheet> {
                       height: 40,
                     ),
                     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      const SubTitle(title: '다짐 유형'),
+                      const SubTitle(title: Strings.UI_COMMITMENT_TYPE),
                       const SizedBox(
                         height: 15,
                       ),
@@ -116,28 +115,29 @@ class AddCommitmentBottomSheetState extends State<AddCommitmentBottomSheet> {
                       const SizedBox(
                         height: 15,
                       ),
-                      RichText(
-                        text: const TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: '나만의 다짐',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(text: '으로 나의 목표를 이뤄보아요'),
-                          ],
-                        ),
-                      ),
-                      RichText(
-                        text: const TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: '모두의 다짐',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(text: '으로 다함께 목표를 이뤄보아요'),
-                          ],
-                        ),
-                      )
+                      _type == CommitmentType.personal
+                          ? RichText(
+                              text: const TextSpan(
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: Strings.UI_PERSONAL_COMMITMENT,
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(text: '으로 나의 목표를 이뤄보아요'),
+                                ],
+                              ),
+                            )
+                          : RichText(
+                              text: const TextSpan(
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: Strings.UI_PUBLIC_COMMITMENT,
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(text: '으로 다함께 목표를 이뤄보아요'),
+                                ],
+                              ),
+                            )
                     ]),
                     const SizedBox(
                       height: 40,

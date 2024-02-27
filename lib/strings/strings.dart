@@ -4,8 +4,8 @@ class Strings {
   // NAV
   static const String NAV_HOME = '홈';
   static const String NAV_HOME_TITLE = '모두의 다짐';
-  static const String NAV_MY_COMMITMENTS = '나의 목표';
-  static const String NAV_COMMITMENTS = '다짐';
+  static const String NAV_MY_COMMITMENTS = '다짐 목록';
+  static const String NAV_COMMITMENTS = '내 다짐';
 
   static const String PAGE_TITLE_ADD_COMMITMENT = '추가하기';
 
@@ -14,6 +14,9 @@ class Strings {
   static const String UI_COMMITMENT_RENEW_SUCCESS = '다짐하기';
   static const String UI_ADD_COMMITMENT_TITLE = '새로운 다짐 만들기';
   static const String UI_FORMANT_EXPIRATION = '일 후 자동으로 완료 됩니다.';
+  static const String UI_PERSONAL_COMMITMENT = '나만의 다짐';
+  static const String UI_PUBLIC_COMMITMENT = '모두의 다짐';
+  static const String UI_COMMITMENT_TYPE = '모두의 다짐';
 
   // FORM
   static const String FORM_TEXT_TITLE = '다짐 제목';
@@ -26,4 +29,5 @@ class Strings {
 
   // TOAST Mesage
   static const String TOAST_WELCOME_SIGN_IN = '로그인 성공! 환영합니다~';
+  static const String TOAST_API_ERROR = '서버 에러';
 }
